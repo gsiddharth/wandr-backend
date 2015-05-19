@@ -22,6 +22,6 @@ func Init(database string, connectionString string) error {
 	DB.CreateTable(User{})
 	DB.CreateTable(UserProfile{})
 	DB.CreateTable(Video{})
-
+	DB.CreateTable(SessionSecret{})
 	return nil
 }

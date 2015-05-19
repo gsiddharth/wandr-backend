@@ -4,37 +4,25 @@ const (
 	USER_LOGIN_PASSWORD_INCORRECT = iota
 	USER_NOT_LOGGED_IN
 	USER_DOESNT_NOT_EXIST
+	USER_NOT_FOUND_SESSION_KEY
+
+	REGISTER_USERNAME_NOT_UNIQUE
+	REGISTER_EMAIL_NOT_UNIQUE
 
 	SESSION_KEY_ERROR
+	SESSION_AUTHENTICATION_ERROR
+	SESSION_SECRET_CREATE_ERROR
 
 	DB_SAVE_ERROR
 	DB_UPDATE_ERROR
 	DB_GET_ERROR
 )
 
-type UserError struct {
+type Error struct {
 	Description string
 	Code        int
 }
 
-func (e *UserError) Error() string {
-	return e.Description
-}
-
-type SessionError struct {
-	Description string
-	Code        int
-}
-
-func (e *SessionError) Error() string {
-	return e.Description
-}
-
-type DBError struct {
-	Description string
-	Code        int
-}
-
-func (e *DBError) Error() string {
+func (e *Error) Error() string {
 	return e.Description
 }

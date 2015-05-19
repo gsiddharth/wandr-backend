@@ -48,39 +48,39 @@ func StoreFloat64(rw http.ResponseWriter, r *http.Request, key interface{}, valu
 	Store(rw, r, key, value)
 }
 
-func GetString(rw http.ResponseWriter, r *http.Request, key interface{}) (string, *errors.SessionError) {
+func GetString(rw http.ResponseWriter, r *http.Request, key interface{}) (string, error) {
 	value, found := Get(rw, r, key).(string)
 	if found {
 		return value, nil
 	} else {
-		return "", &errors.SessionError{Description: "Key not found", Code: errors.SESSION_KEY_ERROR}
+		return "", &errors.Error{Description: "Key not found", Code: errors.SESSION_KEY_ERROR}
 	}
 }
 
-func GetInt(rw http.ResponseWriter, r *http.Request, key interface{}) (int, *errors.SessionError) {
+func GetInt(rw http.ResponseWriter, r *http.Request, key interface{}) (int, error) {
 	value, found := Get(rw, r, key).(int)
 	if found {
 		return value, nil
 	} else {
-		return 0, &errors.SessionError{Description: "Key not found", Code: errors.SESSION_KEY_ERROR}
+		return 0, &errors.Error{Description: "Key not found", Code: errors.SESSION_KEY_ERROR}
 	}
 }
 
-func GetUInt(rw http.ResponseWriter, r *http.Request, key interface{}) (uint, *errors.SessionError) {
+func GetUInt(rw http.ResponseWriter, r *http.Request, key interface{}) (uint, error) {
 	value, found := Get(rw, r, key).(uint)
 	if found {
 		return value, nil
 	} else {
-		return 0, &errors.SessionError{Description: "Key not found", Code: errors.SESSION_KEY_ERROR}
+		return 0, &errors.Error{Description: "Key not found", Code: errors.SESSION_KEY_ERROR}
 	}
 }
 
-func GetFloat64(rw http.ResponseWriter, r *http.Request, key interface{}) (float64, *errors.SessionError) {
+func GetFloat64(rw http.ResponseWriter, r *http.Request, key interface{}) (float64, error) {
 	value, found := Get(rw, r, key).(float64)
 	if found {
 		return value, nil
 	} else {
-		return 0, &errors.SessionError{Description: "Key not found", Code: errors.SESSION_KEY_ERROR}
+		return 0, &errors.Error{Description: "Key not found", Code: errors.SESSION_KEY_ERROR}
 	}
 }
 
@@ -88,7 +88,7 @@ func SetCurrentUser(rw http.ResponseWriter, r *http.Request, user *User) {
 	Store(rw, r, CURRENT_USER_ID_KEY, user.ID)
 }
 
-func GetCurrentUser(rw http.ResponseWriter, r *http.Request) (*User, *errors.UserError) {
+func GetCurrentUser(rw http.ResponseWriter, r *http.Request) (*User, error) {
 	id, err0 := GetUInt(rw, r, CURRENT_USER_ID_KEY)
 
 	if err0 == nil {
@@ -96,9 +96,9 @@ func GetCurrentUser(rw http.ResponseWriter, r *http.Request) (*User, *errors.Use
 		if err1 == nil {
 			return user, nil
 		} else {
-			return nil, &errors.UserError{Description: "User not logged In", Code: errors.USER_NOT_LOGGED_IN}
+			return nil, &errors.Error{Description: "User not logged In", Code: errors.USER_NOT_LOGGED_IN}
 		}
 	} else {
-		return nil, &errors.UserError{Description: "User not logged In", Code: errors.USER_NOT_LOGGED_IN}
+		return nil, &errors.Error{Description: "User not logged In", Code: errors.USER_NOT_LOGGED_IN}
 	}
 }
